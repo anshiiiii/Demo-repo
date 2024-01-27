@@ -11,9 +11,13 @@ Please provide a detailed description of the issue you encountered.
 
 **Expected Behavior:**
 
+Mention the expected behaviour of the code or any feature. 
+
 **Actual Behavior:**
 
+Mention the actual behaviour.
+
 **Environment:**
-- Operating System:
-- Browser (if applicable):
-- Version:
+- Operating System: Windows, Mac or any other OS
+- Browser (if applicable): Brave, Firefox,etc.
+- Version: Version of the OS or software
