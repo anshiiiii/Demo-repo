@@ -95,7 +95,7 @@ http://localhost:8080/api
 
 ## Invitation
 
-## Base URL
+### Base URL
 http://localhost:8080/api/invite
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ http://localhost:8080/api/invite
 <details>
 <summary><code>POST</code> <code><b>/</b></code> <code>(overwrites all in-memory stub and/or proxy-config)</code></summary>
 
-#### Parameter
+#### Parameters
 > | name      |  type     | data type               | description                                                           |
 > |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
 > | userName  |  String   | object (JSON )          |Invitee Name                                                           |
@@ -153,7 +153,108 @@ http://localhost:8080/api/invite
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#### Resend Invitation
+**URL:**  `/resend`
+------------------------------------------------------------------------------------------------------------------------------------------------------
+<details>
+<summary><code>POST</code> <code><b>/</b></code> <code>(overwrites all in-memory stub and/or proxy-config)</code></summary>
 
+#### Parameters
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | invId     |  UUID     | object (JSON )          |Invitation Id                                                          |
 
+#### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `401`         | `application/json`                | 'http Status: Bad Request', 'message: Invalid Invitation'           |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation Already Accepted'  |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Unauthorized Operation'       |
+
+#### Example cURL
+>```javascript
+>curl -X POST \  'https://your-api-domain.com/invite/resend?invId=invitation_id_here' \
+>-H 'Authorization: Bearer <your_access_token>'
+>```
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#### Verify Invitation
+**URL:** `/verifyInvite`
+------------------------------------------------------------------------------------------------------------------------------------------------------
+<details>
+ <summary><code>GET</code> <code><b>/</b></code> <code>(gets all in-memory stub & proxy configs)</code></summary>
+
+#### Parameters
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | token     |  UUID     | object (JSON )          |Invitation Token (used to verify the invitation)                       |
+
+#### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `401`         | `application/json`                | 'http Status: Bad Request', 'message: Invalid Invitation Token'     |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation Already Accepted'  |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation expired'           |
+
+#### Example cURL
+>```javascript
+>curl -X GET \
+> 'https://your-api-domain.com/invite/verifyInvite?token=invitation_token_here'
+>```
+
+#### Response Body Example
+>```json
+>{
+>   "data": {
+>       "id": "invitation_id",
+>       "email": "user@example.com",
+>       "role": "ROLE_USER"
+>   }
+>}
+>```
+</details>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#### Accept Invitation and Create User
+**URL:** `/acceptInvitation`
+------------------------------------------------------------------------------------------------------------------------------------------------------
+<details>
+<summary><code>POST</code> <code><b>/</b></code> <code>(overwrites all in-memory stub and/or proxy-config)</code></summary>
+
+#### Parameters
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | token     |  UUID     | object (JSON )          |Invitation Token (used to verify the invitation)                       |
+> | userName  |  String   | object (JSON )          |User Name                                                              |
+> | emailId   |  String   | object (JSON )          |Use Authorised EmailId for login                                       |
+> | password  |  String   | object (JSON )          |Password for authenication                                             |
+> | contact   |  String   | object (JSON )          |User contact                                                           |
+> | Linkedin  |  String   | object (JSON )          |Social Media                                                           |
+> | Role      |  String   | object (JSON )          |Role provided by the admin                                             |
+
+#### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `201`         | `text/plain;charset=UTF-8`        | 'http Status: Ok', 'message: User created successfully'             |
+> | `201`         | `text/plain;charset=UTF-8`        | 'http Status: Ok', 'message: Invitation Accepted'                   |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invalid Invitation '          |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation Expired'           |
+> | `500`         | `application/json`                |  'http Status: Internal Server Error', 'message:Error occured while processing the request'        |
+
+#### Example cURL
+>```javascript
+>curl -X POST \
+>'https://your-api-domain.com/invite/acceptInvitation?token=invitation_token_here' \
+> -H 'Content-Type: application/json' \
+> -d '{
+>       "username": "newuser",
+>       "password": "password"
+>   }'
+>```
+</details>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
