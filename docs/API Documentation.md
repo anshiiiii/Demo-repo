@@ -1,4 +1,4 @@
-## Auth Controller
+## Authorization
 
 ### Base URL
 http://localhost:8080/api
@@ -90,5 +90,70 @@ http://localhost:8080/api
 ### Note
 - Ensure that proper authentication credentials are provided for accessing secured endpoints.
 - Handle authentication tokens securely and avoid exposing them to unauthorized users.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Invitation
+
+## Base URL
+http://localhost:8080/api/invite
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#### New Invitation
+**URL:** `/new`
+------------------------------------------------------------------------------------------------------------------------------------------------------
+<details>
+<summary><code>POST</code> <code><b>/</b></code> <code>(overwrites all in-memory stub and/or proxy-config)</code></summary>
+
+#### Parameter
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | userName  |  String   | object (JSON )          |Invitee Name                                                           |
+> | emailId   |  String   | object (JSON )          |Invitee emailId                                                        |
+> | role      |  String   | object (JSON )          |role of the invitee(Admin, Coaches, mentors, ventures, mentees)        |
+
+#### Respones
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `201`         | `text/plain;charset=UTF-8`        | 'http Status: Ok', 'message: Invitation sent successfully'          |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation already sent'      |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:User Exists'                  |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation to Same Role'      |
+> | `401`         | `application/json`                |  'http Status: Bad Request', 'message:Invitation to Invalid Role'   |
+> | `500`         | `application/json`                |  'http Status: Bad request', 'message:Internal Server error'        |
+
+#### Example cURL
+>```javascript
+>curl -X POST \
+>https://your-api-domain.com/invite/new \
+>-H 'Content-Type: application/json' \
+>-d '{
+>       "email": "user@example.com",
+>       "role": "ROLE_USER"
+>   }'
+>```
+
+#### Request Body
+>```json
+>{
+>   "name":"user_name",
+>   "email": "user@example.com",
+>   "role": "ROLE_USER"
+>}
+>```
+
+#### Response Body
+>```json
+>{
+>   "message": "Invitation created successfully"
+>}
+>```
+</details>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
