@@ -176,6 +176,7 @@ http://localhost:8080/api/invite
 >curl -X POST \  'https://your-api-domain.com/invite/resend?invId=invitation_id_here' \
 >-H 'Authorization: Bearer <your_access_token>'
 >```
+</details>
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
