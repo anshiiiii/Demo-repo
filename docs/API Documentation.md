@@ -1,4 +1,5 @@
-## Authorization
+<details>
+<summary> Authorization </summary>
 
 ### Base URL
 http://localhost:8080/api
@@ -93,7 +94,11 @@ http://localhost:8080/api
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## Invitation
+</details>
+
+<details>
+<summary> Invitation </summary>
+
 
 ### Base URL
 http://localhost:8080/api/invite
@@ -257,5 +262,7 @@ http://localhost:8080/api/invite
 </details>
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
+
+</details>
 
 
